@@ -1,0 +1,18 @@
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://mosher.mine.nu/nexus/repository/maven-public/'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+dependencies {
+    implementation group: 'com.google.guava', name: 'guava', version: 'latest.release'
+}
+
+group = 'nu.mine.mosher'
+version = '1.0.0-SNAPSHOT'
+mainClassName = 'nu.mine.mosher.StrongHash'
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_9
