@@ -8,11 +8,16 @@ repositories {
 apply plugin: 'java'
 apply plugin: 'application'
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
     implementation group: 'com.google.guava', name: 'guava', version: 'latest.release'
+    testImplementation group: "org.junit.jupiter", name: "junit-jupiter-api", version: 'latest.release'
+    testRuntime group: "org.junit.jupiter", name: "junit-jupiter-engine", version: 'latest.release'
 }
 
 group = 'nu.mine.mosher'
 version = '1.0.0-SNAPSHOT'
-mainClassName = 'nu.mine.mosher.StrongHash'
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_9
+mainClassName = 'nu.mine.mosher.security.password.StrongHash'
