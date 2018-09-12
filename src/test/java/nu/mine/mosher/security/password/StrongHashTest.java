@@ -69,6 +69,11 @@ class StrongHashTest {
     }
 
     @Test
+    void storedHashWithManyFieldsThrows() {
+        assertThrows(HashedString.InvalidFormat.class, () -> isPasswordValid("foobar", "1:00:00::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"));
+    }
+
+    @Test
     void hugeIterThrows() {
         assertThrows(HashedString.InvalidFormat.class, () -> isPasswordValid("foobar", Integer.toString(1 << 29)+":00:00"));
     }
@@ -82,6 +87,6 @@ class StrongHashTest {
 
     @Test
     void cannotInstantiate() {
-        assertThrows(IllegalStateException.class, StrongHash::testCannotInstantiate);
+        assertThrows(IllegalStateException.class, StrongHash::new);
     }
 }

@@ -27,12 +27,8 @@ import javax.crypto.spec.PBEKeySpec;
  * @author Christopher A. Mosher
  */
 public final class StrongHash {
-    private StrongHash() {
+    StrongHash() {
         throw new IllegalStateException("Do not instantiate.");
-    }
-
-    static void testCannotInstantiate() throws IllegalStateException {
-        new StrongHash();
     }
 
 
@@ -117,7 +113,7 @@ public final class StrongHash {
     /**
      * Creates a secure hash for the given password, in an unspecified internal format.
      * The format is forwardly compatible with future versions of this library.
-     * The returned string is suitable to be stored in a database and retrieved for
+     * The returned string is suitable to be stored in a database and retrieved
      * at a later time for verifying candidate passwords.
      *
      * @param password The string (password, pass-phrase, etc.) to compute the hash of.

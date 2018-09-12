@@ -15,13 +15,9 @@ public final class HashedString {
 
     public HashedString(final int iterations, final byte[] salt, final byte[] hash) throws InvalidFormat {
         try {
-            this.iterations = iterations;
-            this.salt = validate(salt);
-            this.hash = validate(hash);
-
-            if (this.iterations < MIN_ITERATIONS || MAX_ITERATIONS < this.iterations) {
-                throw new InvalidFormat("Hash algorithm iterations must be between "+MIN_ITERATIONS+" and "+MAX_ITERATIONS);
-            }
+            this.iterations = validIterationRange(iterations);
+            this.salt = nonEmptyCopy(salt);
+            this.hash = nonEmptyCopy(hash);
         } catch (final InvalidFormat e) {
             throw e;
         } catch (final Throwable cause) {
@@ -29,17 +25,24 @@ public final class HashedString {
         }
     }
 
-    private static byte[] validate(final byte[] r) throws InvalidFormat {
-        final byte[] c = Objects.requireNonNull(r).clone();
-        if (c.length == 0) {
-            throw new InvalidFormat("Missing salt or hash.");
+    private static int validIterationRange(final int iterations) throws InvalidFormat {
+        if (iterations < MIN_ITERATIONS || MAX_ITERATIONS < iterations) {
+            throw new InvalidFormat("Hash algorithm iterations must be between "+MIN_ITERATIONS+" and "+MAX_ITERATIONS);
         }
-        return c;
+        return iterations;
     }
 
-    public static HashedString create(final String internalRepresentation) throws InvalidFormat {
+    private static byte[] nonEmptyCopy(final byte[] untrusted) throws InvalidFormat {
+        final byte[] klone = Objects.requireNonNull(untrusted).clone();
+        if (klone.length == 0) {
+            throw new InvalidFormat("Missing salt or hash.");
+        }
+        return klone;
+    }
+
+    public static HashedString create(final String untrustedInternalRepresentation) throws InvalidFormat {
         try {
-            final String[] parts = Objects.requireNonNull(internalRepresentation).split(DELIMITER, -1);
+            final String[] parts = Objects.requireNonNull(untrustedInternalRepresentation).split(DELIMITER, 3);
 
             final int iterations = Integer.parseInt(parts[0]);
             final byte[] salt = unhex(parts[1]);
