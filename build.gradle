@@ -21,3 +21,4 @@ dependencies {
 group = 'nu.mine.mosher'
 version = '1.0.0-SNAPSHOT'
 mainClassName = 'nu.mine.mosher.security.password.StrongHash'
+sourceCompatibility = '1.8'
