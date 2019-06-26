@@ -20,6 +20,14 @@ test {
     useJUnitPlatform()
 }
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
 group = 'nu.mine.mosher.security.password'
 version = '1.0.0'
 mainClassName = 'nu.mine.mosher.security.password.StrongHash'
