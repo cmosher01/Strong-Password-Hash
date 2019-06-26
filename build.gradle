@@ -1,16 +1,14 @@
+plugins {
+    id 'maven-publish'
+}
+
 repositories {
     mavenCentral()
-    maven {
-        url 'https://mosher.mine.nu/nexus/repository/maven-public/'
-    }
+    jcenter()
 }
 
 apply plugin: 'java'
 apply plugin: 'application'
-
-test {
-    useJUnitPlatform()
-}
 
 dependencies {
     implementation group: 'com.google.guava', name: 'guava', version: 'latest.release'
@@ -18,7 +16,11 @@ dependencies {
     testRuntime group: "org.junit.jupiter", name: "junit-jupiter-engine", version: 'latest.release'
 }
 
-group = 'nu.mine.mosher'
-version = '1.0.0-SNAPSHOT'
+test {
+    useJUnitPlatform()
+}
+
+group = 'nu.mine.mosher.security.password'
+version = '1.0.0'
 mainClassName = 'nu.mine.mosher.security.password.StrongHash'
 sourceCompatibility = '1.8'
