@@ -35,6 +35,6 @@ publishing {
 }
 
 group = 'nu.mine.mosher.security.password'
-version = '1.0.1'
+version = '1.0.2'
 mainClassName = 'nu.mine.mosher.security.password.StrongHash'
 sourceCompatibility = '1.8'

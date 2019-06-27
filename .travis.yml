@@ -2,7 +2,7 @@
 dist: xenial
 language: java
 before_deploy:
-  - ./gradlew generatePomFileForMavenPublication
+  - ./gradlew sourcesJar generatePomFileForMavenPublication
 deploy:
   provider: bintray
   file: bintray.json
