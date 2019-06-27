@@ -9,14 +9,14 @@
         ]
     },
     "version": {
-        "name": "1.0.0"
+        "name": "1.0.1"
     },
     "files": [ {
             "includePattern": "build/libs/(.*)",
-            "uploadPattern": "nu/mine/mosher/security/password/strong-password-hash/1.0.0/$1"
+            "uploadPattern": "nu/mine/mosher/security/password/strong-password-hash/1.0.1/$1"
         }, {
             "includePattern": "build/publications/maven/pom-default.xml",
-            "uploadPattern": "nu/mine/mosher/security/password/strong-password-hash/1.0.0/strong-password-hash-1.0.0.pom"
+            "uploadPattern": "nu/mine/mosher/security/password/strong-password-hash/1.0.1/strong-password-hash-1.0.1.pom"
         }
     ],
     "publish": true

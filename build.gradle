@@ -20,15 +20,21 @@ test {
     useJUnitPlatform()
 }
 
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier = 'sources'
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
             from components.java
+            artifact sourcesJar
         }
     }
 }
 
 group = 'nu.mine.mosher.security.password'
-version = '1.0.0'
+version = '1.0.1'
 mainClassName = 'nu.mine.mosher.security.password.StrongHash'
 sourceCompatibility = '1.8'
