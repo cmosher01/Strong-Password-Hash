@@ -89,4 +89,16 @@ class StrongHashTest {
     void cannotInstantiate() {
         assertThrows(IllegalStateException.class, StrongHash::new);
     }
+
+    @Test
+    void hex() {
+        final String actual = HashedString.hex(new byte[] { -128, -127, -5, -1, 0, 1, 5, 21, 127 });
+        assertEquals("8081FBFF000105157F", actual);
+    }
+
+    @Test
+    void unhex() {
+        final byte[] actual = HashedString.unhex("8081FBFF000105157F");
+        assertArrayEquals(new byte[] { -128, -127, -5, -1, 0, 1, 5, 21, 127 }, actual);
+    }
 }

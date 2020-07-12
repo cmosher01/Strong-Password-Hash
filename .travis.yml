@@ -1,8 +1,7 @@
 ---
-dist: xenial
 language: java
-before_deploy:
-  - ./gradlew sourcesJar generatePomFileForMavenPublication
+jdk: openjdk8
+
 deploy:
   provider: bintray
   file: bintray.json

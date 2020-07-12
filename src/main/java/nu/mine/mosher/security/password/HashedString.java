@@ -1,8 +1,8 @@
 package nu.mine.mosher.security.password;
 
-import com.google.common.io.BaseEncoding;
+//import com.google.common.io.BaseEncoding;
 
-import java.util.Objects;
+import java.util.*;
 
 public final class HashedString {
     private static final int MIN_ITERATIONS = 1;
@@ -58,15 +58,41 @@ public final class HashedString {
 
     @Override
     public String toString() {
-        return Integer.toString(this.iterations) + DELIMITER + hex(this.salt) + DELIMITER + hex(this.hash);
+        return this.iterations + DELIMITER + hex(this.salt) + DELIMITER + hex(this.hash);
     }
 
-    private static String hex(final byte[] rb) {
-        return BaseEncoding.base16().encode(rb);
+    static String hex(final byte[] rb) {
+        final StringBuilder sb = new StringBuilder();
+        for (final byte b : rb) {
+            sb.append(String.format("%02X", b));
+        }
+        return sb.toString();
     }
 
-    private static byte[] unhex(final String s) {
-        return BaseEncoding.base16().decode(s);
+    static byte[] unhex(final String s) {
+        if (s.length() % 2 == 1) {
+            throw new IllegalArgumentException("Invalid hex String, must be even number of characters.");
+        }
+
+        final byte[] bytes = new byte[s.length() / 2];
+        for (int i = 0; i < s.length(); i += 2) {
+            bytes[i / 2] = hexToByte(s.substring(i, i + 2));
+        }
+        return bytes;
+    }
+
+    private static byte hexToByte(final String hexAsciiTwoNibbles) {
+        final int hi = nib(hexAsciiTwoNibbles.charAt(0));
+        final int lo = nib(hexAsciiTwoNibbles.charAt(1));
+        return (byte)((hi << 4) | lo);
+    }
+
+    private static int nib(char hexChar) {
+        final int n = Character.digit(hexChar, 16);
+        if (n == -1) {
+            throw new IllegalArgumentException("Invalid hex: "+ hexChar);
+        }
+        return n;
     }
 
     public byte[] salt() {
