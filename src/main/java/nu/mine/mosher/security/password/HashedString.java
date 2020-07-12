@@ -1,7 +1,5 @@
 package nu.mine.mosher.security.password;
 
-//import com.google.common.io.BaseEncoding;
-
 import java.util.*;
 
 public final class HashedString {
