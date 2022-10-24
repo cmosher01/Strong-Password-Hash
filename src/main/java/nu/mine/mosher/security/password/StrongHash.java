@@ -12,12 +12,12 @@ import javax.crypto.spec.PBEKeySpec;
  * Strong hashing library and command-line program.
  *
  * Based on code from:
- * https://howtodoinjava.com/security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/
- * "Generate Secure Password Hash : MD5, SHA, PBKDF2, BCrypt Examples"
+ * "<a href="https://howtodoinjava.com/security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/">Generate Secure Password Hash</a>
+ * : MD5, SHA, PBKDF2, BCrypt Examples"
  * July 22, 2013 by Lokesh Gupta
  *
  * and:
- * https://www.owasp.org/index.php/Hashing_Java
+ * <a href="https://www.owasp.org/index.php/Hashing_Java">Hashing Java</a>
  *
  * This class requires that the JVM have access to the PBKDF2WithHmacSHA1 algorithm.
  * Otherwise, it will throw an unchecked exception during class load time.

@@ -1,11 +1,90 @@
-def inc(module) {
-    apply from: "${projectDir}/gradle/${module}.gradle"
+plugins {
+// TODO    id 'org.beryx.runtime' version '1.12.7'
+    id 'application'
+    id 'java-library'
+    id 'maven-publish'
 }
 
-inc('version')
-inc('project')
-inc('dependencies')
-inc('test')
-inc('srcjar')
-inc('maven')
-inc('bintray')
+version = '1.0.4'
+
+group = 'nu.mine.mosher.security.password'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: "org.junit.jupiter", name: "junit-jupiter", version: 'latest.release'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of 11
+    }
+}
+
+application {
+    mainClass = 'nu.mine.mosher.security.password.StrongHash'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = true
+    }
+}
+
+// assemble {
+//     dependsOn tasks.jpackage
+// }
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            pom {
+                name = 'Strong-Password-Hash'
+                description = 'PBKDF hashing command-line program and java library'
+                url = 'https://github.com/cmosher01/Strong-Password-Hash'
+                inceptionYear = '2018'
+                packaging = 'jar'
+                licenses {
+                    license {
+                        name = 'GNU General Public License v3.0'
+                        url = 'https://www.gnu.org/licenses/gpl-3.0.html'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'cmosher01'
+                        name = 'Christopher Alan Mosher'
+                        email = 'cmosher01@gmail.com'
+                        url = 'https://mosher.mine.nu'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/cmosher01/Strong-Password-Hash.git'
+                    developerConnection = 'scm:git:ssh://github.com/cmosher01/Strong-Password-Hash.git'
+                    url = 'http://github.com/cmosher01/Strong-Password-Hash'
+                }
+            }
+        }
+    }
+}
+
+assemble {
+    dependsOn tasks.generatePomFileForMavenPublication
+}
+
+publishing {
+    repositories {
+        maven {
+            url 'https://maven.pkg.github.com/cmosher01/Strong-Password-Hash'
+            credentials {
+                username = System.getenv('GITHUB_ACTOR') ?: 'restricted'
+                password = System.getenv('GITHUB_TOKEN') ?: 'restricted'
+            }
+        }
+    }
+}
